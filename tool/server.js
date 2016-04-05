@@ -1,6 +1,6 @@
 import tool from 'meteor-tool';
 
-tool.run('../dist/server')
+tool.run('../build/server')
   .keepAlive({ restartCount: 3 })
   ;
 

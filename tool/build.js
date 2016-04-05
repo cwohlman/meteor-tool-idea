@@ -4,33 +4,37 @@ import Tool from 'meteor-tool';
 // tool is chainable, each call returns a new tool instance
 const tool = Tool
   .importsDir('../imports')
-  .packagesDir('~/.meteor/packages')
+  .packageDirs(Tool.PACKAGE_DIRS)
   ;
 
-tool.usePackages('../config/packages')
+tool
+  .usePackages('../config/packages')
+  .useVersions('../config/versions')
   .processFiles('../server')
-  .outputFiles('../dist/server')
+  .outputFiles('../build/server')
   ;
 
-tool.usePackages('../config/packages')
+tool
+  .usePackages('../config/packages')
+  .useVersions('../config/versions')
   .processFiles('../client')
-  .outputFiles('../dist/public/resources')
-  .outputBundle('../dist/server/client-bundle.js')
+  .outputFiles('../build/public/resources')
+  .outputBundle('../build/server/client-bundle.js')
   ;
 
 tool
   .use('meteor-client-bundle', {
-    bundlePath: '../dist/server/client-bundle.js',
+    bundlePath: '../build/server/client-bundle.js',
   })
   .processFiles('../public')
-  .outputFiles('../dist/public')
+  .outputFiles('../build/public')
   ;
 
 tool
   .use('meteor-server-assets')
   .processFiles('../assets')
-  .outputFiles('../dist/server/assets')
-  .outputBundle('../dist/server/assets-bundle.js')
+  .outputFiles('../build/server/assets')
+  .outputBundle('../build/server/assets-bundle.js')
   ;
 
 export default tool;
